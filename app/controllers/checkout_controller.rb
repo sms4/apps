@@ -115,27 +115,23 @@ class CheckoutController < ApplicationController
 
   private
 
-  def unauthorized
-    flash[:error] = "Você não está autorizado a adicionar o aplicativo a esta disciplina."
+  def setError(p_error)
+    flash[:error] = p_error
 
     respond_to do |format|
       format.js
     end
+  end
+
+  def unauthorized
+    setError("Você não está autorizado a adicionar o aplicativo a esta disciplina.")
   end
 
   def bad_request
-    flash[:error] = "Por favor, verifique os campos preenchidos."
-
-    respond_to do |format|
-      format.js
-    end
+    setError("Por favor, verifique os campos preenchidos.")
   end
 
   def connection_failed
-    flash[:error] = "Não foi possível adicionar à disciplina. Por favor, cheque sua conexão."
-
-    respond_to do |format|
-      format.js
-    end
+    setError("Não foi possível adicionar à disciplina. Por favor, cheque sua conexão.")
   end
 end
